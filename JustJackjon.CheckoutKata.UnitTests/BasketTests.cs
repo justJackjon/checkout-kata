@@ -12,6 +12,7 @@ namespace JustJackjon.CheckoutKata.UnitTests
             // Arrange
             var basket = new Basket();
             var testItem = new Item("A", 10m);
+            var unexpectedItem = new Item("B", 15m);
 
             // Act
             basket.AddItem(testItem);
@@ -20,6 +21,7 @@ namespace JustJackjon.CheckoutKata.UnitTests
             // Assert
             Assert.That(itemsInBasket, Has.Exactly(1).Items);
             Assert.That(itemsInBasket, Does.Contain(testItem));
+            Assert.That(itemsInBasket, Does.Not.Contain(unexpectedItem));
         }
     }
 }
