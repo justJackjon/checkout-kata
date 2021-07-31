@@ -14,6 +14,18 @@ namespace JustJackjon.CheckoutKata.Library
 
         public List<Item> GetItems() => _basketItems;
 
-        public decimal GetTotalCost() => _basketItems.Sum(x => x.UnitPrice);
+        public decimal GetTotalCost()
+        {
+            var subTotal = _basketItems.Sum(x => x.UnitPrice);
+
+            var bItems = _basketItems.FindAll(x => x.ItemSku == "B");
+
+            if (bItems.Count == 3)
+            {
+                subTotal -= 5m;
+            }
+
+            return subTotal;
+        }
     }
 }
