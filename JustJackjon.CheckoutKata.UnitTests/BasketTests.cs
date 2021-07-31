@@ -61,34 +61,12 @@ namespace JustJackjon.CheckoutKata.UnitTests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void ShouldApplyPromotion3For40WhenOneMultipleOfThreeLotsOfItemBAddedToBasket()
+        [TestCase(40.00, "B", "B", "B")]
+        [TestCase(80.00, "B", "B", "B", "B", "B", "B")]
+        public void ShouldApplyPromotion3For40WhenOneMultipleOfThreeLotsOfItemBAddedToBasket(decimal expected, params string[] itemSkus)
         {
             // Arrange
-            const decimal expected = 40m;
             var basket = new Basket();
-            string[] itemSkus = {"B", "B", "B"};
-
-            // Act
-            foreach (var sku in itemSkus)
-            {
-                var item = GetTestItemBySku(sku);
-                basket.AddItem(item);
-            }
-
-            var actual = basket.GetTotalCost();
-
-            // Assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-        
-        [Test]
-        public void ShouldApplyPromotion3For40WhenMultiplesOfThreeLotsOfItemBAddedToBasket()
-        {
-            // Arrange
-            const decimal expected = 80m;
-            var basket = new Basket();
-            string[] itemSkus = {"B", "B", "B", "B", "B", "B"};
 
             // Act
             foreach (var sku in itemSkus)
