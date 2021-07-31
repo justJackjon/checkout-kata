@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using JustJackjon.CheckoutKata.Library.Models;
 
 namespace JustJackjon.CheckoutKata.Library
@@ -13,5 +13,7 @@ namespace JustJackjon.CheckoutKata.Library
         public void AddItem(Item item) => _basketItems.Add(item);
 
         public List<Item> GetItems() => _basketItems;
+
+        public decimal GetTotalCost() => _basketItems.Sum(x => x.UnitPrice);
     }
 }
