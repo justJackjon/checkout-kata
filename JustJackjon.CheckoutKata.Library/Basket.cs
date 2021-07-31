@@ -1,33 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JustJackjon.CheckoutKata.Library.Interfaces;
 using JustJackjon.CheckoutKata.Library.Models;
 
 namespace JustJackjon.CheckoutKata.Library
 {
     public class Basket
     {
-        private readonly List<Item> _basketItems;
+        private readonly List<IItem> _basketItems;
 
-        public Basket() => _basketItems = new List<Item>();
+        public Basket() => _basketItems = new List<IItem>();
 
-        public void AddItem(Item item) => _basketItems.Add(item);
+        public void AddItem(IItem item) => _basketItems.Add(item);
 
-        public List<Item> GetItems() => _basketItems;
+        public List<IItem> GetItems() => _basketItems;
+
+        private decimal ApplyPromotionStrategies(List<PromotionalItem> promotionalItems, decimal subTotal)
+        {
+            var promoItemsToProcess = promotionalItems.ToList();
+            var runningTotal = subTotal;
+
+            while (promoItemsToProcess.Count > 0)
+            {
+                var currentPromoId = promoItemsToProcess.First().PromoId;
+                var strategy = new AvailablePromotions().Lookup[currentPromoId];
+
+                runningTotal = strategy.ApplyPromotion(promoItemsToProcess, runningTotal);
+                promoItemsToProcess.RemoveAll(x => x.PromoId == currentPromoId);
+            }
+
+            return runningTotal;
+        }
 
         public decimal GetTotalCost()
         {
             var subTotal = _basketItems.Sum(x => x.UnitPrice);
+            var promotionalItems = _basketItems.OfType<PromotionalItem>().ToList();
 
-            var bItems = _basketItems.FindAll(x => x.ItemSku == "B");
-
-            const int numOfBItemsToTriggerPromo = 3;
-            var numOfBItems = bItems.Count;
-            
-            if (numOfBItems >= numOfBItemsToTriggerPromo)
+            if (promotionalItems.Any())
             {
-                const decimal promotionValue = 5m;
-                var numTimesToApplyPromotion = numOfBItems / numOfBItemsToTriggerPromo;
-                subTotal -= (numTimesToApplyPromotion * promotionValue);
+                subTotal = ApplyPromotionStrategies(promotionalItems, subTotal);
             }
 
             return subTotal;

@@ -1,5 +1,6 @@
 using System.Linq;
 using JustJackjon.CheckoutKata.Library;
+using JustJackjon.CheckoutKata.Library.Interfaces;
 using JustJackjon.CheckoutKata.Library.Models;
 using NUnit.Framework;
 
@@ -7,21 +8,21 @@ namespace JustJackjon.CheckoutKata.UnitTests
 {
     public class BasketTests
     {
-        private Item[] _testItemCatalogue;
+        private IItem[] _testItemCatalogue;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _testItemCatalogue = new Item[]
+            _testItemCatalogue = new IItem[]
             {
-                new("A", 10m),
-                new("B", 15m),
-                new("C", 40m),
-                new("D", 55m)
+                new Item("A", 10m),
+                new PromotionalItem("B", 15m, 1234),
+                new Item("C", 40m),
+                new Item("D", 55m)
             };
         }
 
-        private Item GetTestItemBySku(string sku) => _testItemCatalogue.ToList().Find(x => x.ItemSku == sku);
+        private IItem GetTestItemBySku(string sku) => _testItemCatalogue.ToList().Find(x => x.ItemSku == sku);
 
         [Test]
         public void ShouldAddCorrectItemToBasketWhenItemIsAddedToBasket()
@@ -65,7 +66,8 @@ namespace JustJackjon.CheckoutKata.UnitTests
         [TestCase(80.00, "B", "B", "B", "B", "B", "B")]
         [TestCase(105.00, "A", "B", "C", "B", "B", "B")]
         [TestCase(240.00, "A", "B", "C", "D", "B", "B", "B", "B", "B", "B", "B", "B", "B")]
-        public void ShouldApplyPromotion3For40WhenOneMultipleOfThreeLotsOfItemBAddedToBasket(decimal expected, params string[] itemSkus)
+        public void ShouldApplyPromotion3For40WhenOneMultipleOfThreeLotsOfItemBAddedToBasket(decimal expected,
+            params string[] itemSkus)
         {
             // Arrange
             var basket = new Basket();
