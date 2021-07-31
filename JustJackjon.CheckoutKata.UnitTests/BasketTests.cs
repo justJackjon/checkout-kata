@@ -65,8 +65,9 @@ namespace JustJackjon.CheckoutKata.UnitTests
         [TestCase(40.00, "B", "B", "B")]
         [TestCase(80.00, "B", "B", "B", "B", "B", "B")]
         [TestCase(105.00, "A", "B", "C", "B", "B", "B")]
+        [TestCase(120.00, "A", "B", "C", "B", "B", "B", "B")]
         [TestCase(240.00, "A", "B", "C", "D", "B", "B", "B", "B", "B", "B", "B", "B", "B")]
-        public void ShouldApplyPromotion3For40WhenOneMultipleOfThreeLotsOfItemBAddedToBasket(decimal expected,
+        public void ShouldApplyPromotion3For40WhenMultiplesOfThreeLotsOfItemBAddedToBasket(decimal expected,
             params string[] itemSkus)
         {
             // Arrange
