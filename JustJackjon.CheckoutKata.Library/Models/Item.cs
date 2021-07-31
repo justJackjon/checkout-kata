@@ -8,7 +8,7 @@ namespace JustJackjon.CheckoutKata.Library.Models
             UnitPrice = unitPrice;
         }
 
-        private string ItemSku { get; }
+        public string ItemSku { get; }
         public decimal UnitPrice { get; }
     }
 }
