@@ -89,7 +89,9 @@ namespace JustJackjon.CheckoutKata.UnitTests
         [TestCase(82.50, "D", "D")]
         [TestCase(92.50, "A", "D", "D")]
         [TestCase(147.50, "A", "D", "D", "D")]
-
+        [TestCase(175.00, "A", "D", "D", "D", "D")]
+        [TestCase(230.00, "A", "D", "D", "D", "D", "D")]
+        [TestCase(285.00, "A", "B", "C", "D", "D", "D", "D", "D")]
         public void ShouldApplyPromotion25PercentOffEveryTwoWhenMultipliesOfTwoOfItemDAddedToBasket(decimal expected,
             params string[] itemSkus)
         {
