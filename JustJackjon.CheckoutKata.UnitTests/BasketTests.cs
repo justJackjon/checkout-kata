@@ -23,5 +23,25 @@ namespace JustJackjon.CheckoutKata.UnitTests
             Assert.That(itemsInBasket, Does.Contain(testItem));
             Assert.That(itemsInBasket, Does.Not.Contain(unexpectedItem));
         }
+
+        [Test]
+        public void ShouldCalculateTheTotalCostWhenTwoItemsHaveBeenAddedToTheBasket()
+        {
+            // Arrange
+            const decimal expected = 25m;
+            var basket = new Basket();
+            Item[] testItems = {new("A", 10m), new("B", 15m)};
+
+            // Act
+            foreach (var item in testItems)
+            {
+                basket.AddItem(item);
+            }
+
+            var actual = basket.GetTotalCost();
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
