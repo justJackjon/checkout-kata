@@ -13,8 +13,8 @@ namespace JustJackjon.CheckoutKata.Library.Strategies.PromotionalStrategies
 
             if (qualifyingItems.Count >= numItemsToTriggerPromo)
             {
-                var promotionValue = qualifyingItems.First().UnitPrice * 0.25m;
-                var numTimesToApplyPromotion = qualifyingItems.Count;
+                var promotionValue = (qualifyingItems.First().UnitPrice * 2) * 0.25m;
+                var numTimesToApplyPromotion = qualifyingItems.Count / numItemsToTriggerPromo;
                 returnTotal -= (numTimesToApplyPromotion * promotionValue);
             }
 
