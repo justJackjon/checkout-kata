@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using JustJackjon.CheckoutKata.Library.Models;
 
 namespace JustJackjon.CheckoutKata.Library.Strategies.PromotionalStrategies
@@ -7,13 +8,17 @@ namespace JustJackjon.CheckoutKata.Library.Strategies.PromotionalStrategies
     {
         public decimal ApplyPromotion(List<PromotionalItem> qualifyingItems, decimal subTotal)
         {
-            // TODO: Implement proper solution. WIP commit to satisfy initial red / green TDD stage.
-            if (qualifyingItems.Count >= 2)
+            const int numItemsToTriggerPromo = 2;
+            var returnTotal = subTotal;
+
+            if (qualifyingItems.Count >= numItemsToTriggerPromo)
             {
-                return subTotal * 0.75m;
+                var promotionValue = qualifyingItems.First().UnitPrice * 0.25m;
+                var numTimesToApplyPromotion = qualifyingItems.Count;
+                returnTotal -= (numTimesToApplyPromotion * promotionValue);
             }
 
-            return subTotal;
+            return returnTotal;
         }
     }
 }

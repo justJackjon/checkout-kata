@@ -86,12 +86,12 @@ namespace JustJackjon.CheckoutKata.UnitTests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void ShouldApplyPromotion25PercentOffEveryTwoWhenMultipliesOfTwoOfItemDAddedToBasket()
+        [TestCase(82.50, "D", "D")]
+        [TestCase(92.50, "A", "D", "D")]
+        public void ShouldApplyPromotion25PercentOffEveryTwoWhenMultipliesOfTwoOfItemDAddedToBasket(decimal expected,
+            params string[] itemSkus)
         {
             // Arrange
-            const decimal expected = 82.5m;
-            string[] itemSkus = {"D", "D"};
             var basket = new Basket();
 
             // Act
