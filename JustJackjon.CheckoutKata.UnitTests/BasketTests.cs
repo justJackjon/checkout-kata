@@ -110,5 +110,30 @@ namespace JustJackjon.CheckoutKata.UnitTests
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
+        
+        [TestCase(122.50, "B", "B", "B", "D", "D")]
+        [TestCase(137.50, "B", "B", "B", "B", "D", "D")]
+        [TestCase(177.50, "B", "B", "B", "D", "D", "D")]
+        [TestCase(132.50, "A", "B", "B", "B", "D", "D")]
+        [TestCase(172.50, "A", "B", "B", "B", "B", "B", "B", "D", "D")]
+        [TestCase(270.00, "A", "B", "B", "B", "B", "C", "D", "D", "D", "D")]
+        public void ShouldApplyMultipleDifferentPromotionsCorrectlyWhenGivenABasketOfMixedItems(decimal expected,
+            params string[] itemSkus)
+        {
+            // Arrange
+            var basket = new Basket();
+
+            // Act
+            foreach (var sku in itemSkus)
+            {
+                var item = GetTestItemBySku(sku);
+                basket.AddItem(item);
+            }
+
+            var actual = basket.GetTotalCost();
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
