@@ -15,7 +15,7 @@ namespace JustJackjon.CheckoutKata.Library
 
         public List<IItem> GetItems() => _basketItems;
 
-        private decimal ApplyPromotionStrategies(List<PromotionalItem> promotionalItems, decimal subTotal)
+        private static decimal ApplyPromotionStrategies(IEnumerable<PromotionalItem> promotionalItems, decimal subTotal)
         {
             var itemsToProcess = promotionalItems.ToList();
             var runningTotal = subTotal;
