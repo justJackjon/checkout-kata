@@ -9,7 +9,8 @@ namespace JustJackjon.CheckoutKata.Library
         {
             Lookup = new Dictionary<int, IPromotionalStrategy>
             {
-                {1234, new ItemB3For40Strategy()}
+                {1234, new ItemB3For40Strategy()},
+                {5678, new ItemD25PercentOffTwoStrategy()}
             };
         }
 

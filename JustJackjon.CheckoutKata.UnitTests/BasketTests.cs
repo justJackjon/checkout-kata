@@ -18,7 +18,7 @@ namespace JustJackjon.CheckoutKata.UnitTests
                 new Item("A", 10m),
                 new PromotionalItem("B", 15m, 1234),
                 new Item("C", 40m),
-                new Item("D", 55m)
+                new PromotionalItem("D", 55m, 5678)
             };
         }
 
@@ -85,9 +85,8 @@ namespace JustJackjon.CheckoutKata.UnitTests
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
-        
+
         [Test]
-        [Ignore("Isolate tests that require bugfixes")]
         public void ShouldApplyPromotion25PercentOffEveryTwoWhenMultipliesOfTwoOfItemDAddedToBasket()
         {
             // Arrange
