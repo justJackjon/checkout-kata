@@ -81,5 +81,26 @@ namespace JustJackjon.CheckoutKata.UnitTests
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
+        
+        [Test]
+        public void ShouldApplyPromotion3For40WhenMultiplesOfThreeLotsOfItemBAddedToBasket()
+        {
+            // Arrange
+            const decimal expected = 80m;
+            var basket = new Basket();
+            string[] itemSkus = {"B", "B", "B", "B", "B", "B"};
+
+            // Act
+            foreach (var sku in itemSkus)
+            {
+                var item = GetTestItemBySku(sku);
+                basket.AddItem(item);
+            }
+
+            var actual = basket.GetTotalCost();
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }
