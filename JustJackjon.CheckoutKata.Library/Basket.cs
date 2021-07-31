@@ -17,16 +17,17 @@ namespace JustJackjon.CheckoutKata.Library
 
         private decimal ApplyPromotionStrategies(List<PromotionalItem> promotionalItems, decimal subTotal)
         {
-            var promoItemsToProcess = promotionalItems.ToList();
+            var itemsToProcess = promotionalItems.ToList();
             var runningTotal = subTotal;
 
-            while (promoItemsToProcess.Count > 0)
+            while (itemsToProcess.Count > 0)
             {
-                var currentPromoId = promoItemsToProcess.First().PromoId;
+                var currentPromoId = itemsToProcess.First().PromoId;
+                var qualifyingItems = itemsToProcess.FindAll(x => x.PromoId == currentPromoId);
                 var strategy = new AvailablePromotions().Lookup[currentPromoId];
 
-                runningTotal = strategy.ApplyPromotion(promoItemsToProcess, runningTotal);
-                promoItemsToProcess.RemoveAll(x => x.PromoId == currentPromoId);
+                runningTotal = strategy.ApplyPromotion(qualifyingItems, runningTotal);
+                itemsToProcess.RemoveAll(x => x.PromoId == currentPromoId);
             }
 
             return runningTotal;

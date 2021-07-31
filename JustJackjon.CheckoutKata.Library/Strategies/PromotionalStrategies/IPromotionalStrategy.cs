@@ -5,6 +5,6 @@ namespace JustJackjon.CheckoutKata.Library.Strategies.PromotionalStrategies
 {
     public interface IPromotionalStrategy
     {
-        decimal ApplyPromotion(List<PromotionalItem> promotionalItems, decimal subTotal);
+        decimal ApplyPromotion(List<PromotionalItem> qualifyingItems, decimal subTotal);
     }
 }
