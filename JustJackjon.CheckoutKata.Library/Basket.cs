@@ -20,9 +20,14 @@ namespace JustJackjon.CheckoutKata.Library
 
             var bItems = _basketItems.FindAll(x => x.ItemSku == "B");
 
-            if (bItems.Count == 3)
+            const int numOfBItemsToTriggerPromo = 3;
+            var numOfBItems = bItems.Count;
+            
+            if (numOfBItems >= numOfBItemsToTriggerPromo)
             {
-                subTotal -= 5m;
+                const decimal promotionValue = 5m;
+                var numTimesToApplyPromotion = numOfBItems / numOfBItemsToTriggerPromo;
+                subTotal -= (numTimesToApplyPromotion * promotionValue);
             }
 
             return subTotal;
