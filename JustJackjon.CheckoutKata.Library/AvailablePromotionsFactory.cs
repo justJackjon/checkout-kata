@@ -3,9 +3,9 @@ using JustJackjon.CheckoutKata.Library.Strategies.PromotionalStrategies;
 
 namespace JustJackjon.CheckoutKata.Library
 {
-    public class AvailablePromotions
+    public class AvailablePromotionsFactory
     {
-        public AvailablePromotions()
+        public AvailablePromotionsFactory()
         {
             Lookup = new Dictionary<int, IPromotionalStrategy>
             {

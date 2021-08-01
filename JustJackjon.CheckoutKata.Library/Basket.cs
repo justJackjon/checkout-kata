@@ -24,7 +24,7 @@ namespace JustJackjon.CheckoutKata.Library
             {
                 var currentPromoId = itemsToProcess.First().PromoId;
                 var qualifyingItems = itemsToProcess.FindAll(x => x.PromoId == currentPromoId);
-                var strategy = new AvailablePromotions().Lookup[currentPromoId];
+                var strategy = new AvailablePromotionsFactory().Lookup[currentPromoId];
 
                 runningTotal = strategy.ApplyPromotion(qualifyingItems, runningTotal);
                 itemsToProcess.RemoveAll(x => x.PromoId == currentPromoId);
